@@ -51,20 +51,6 @@ export async function addTracks() {
       artist: 'senda de la vida',
       artwork: require('./assets/image/logodoradosenda.png'),
       duration: 60,
-    },
-    {
-      id: '2',
-      url: require('./assets/penguinmusic-modern-chillout-future-calm-12641.mp3'),
-      title: 'Modern Chillout',
-      artist: 'penguinmusic',
-      duration: 66,
-    },
-    {
-      id: '3',
-      url: require('./assets/powerful-beat-121791.mp3'),
-      title: 'Powerful Beat',
-      artist: 'penguinmusic',
-      duration: 73,
     }
   ]);
   await TrackPlayer.setRepeatMode(RepeatMode.Queue);
