@@ -21,7 +21,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import IoniIcons from 'react-native-vector-icons/Ionicons';
 import { setupPlayer, addTracks } from './service';
 
-const image = {URL: require('./assets/image/logodoradosenda.png')};
+Icon.loadFont();
+IoniIcons.loadFont();
+const image = {URL: require('./ios/assets/assets/image/logodoradosenda.png')};
 
 function Header() {
   const [info, setInfo] = useState({});
@@ -37,6 +39,9 @@ function Header() {
 
   async function setTrackInfo() {
     const track = await TrackPlayer.getCurrentTrack();
+    if(track == null){
+      track = 0;
+    }
     const info = await TrackPlayer.getTrack(track);
     setInfo(info);
   }
@@ -147,40 +152,45 @@ function Controls({ onShuffle }) {
   }
 
   return(
-    <View style={{flexDirection: 'row',
-      flexWrap: 'wrap', alignItems: 'center',paddingLeft: 97,paddingBottom: 0,paddingTop: 10}}>
-       
-        <IoniIcons.Button
-          name="ios-sync-circle-sharp"
-          size={50}
-          backgroundColor="transparent"
-          color="#aa8515"
-          onPress={onShuffle}/>
-       
-        <Icon.Button
-        /*style={{borderRadius: 150}}*/
-          name={playerState == State.Playing ? 'pause-circle' : 'play-circle'}
-          size={50}
-          backgroundColor="transparent"
-          color="#cfa006"
-          onPress={handlePlayPress}/>
-        {/*
-        <Icon.Button
-          name="arrow-right"
-          size={28}
-          backgroundColor="transparent"
-          onPress={() => TrackPlayer.skipToNext()}/>
-            */}
+    <><View style={{
+      flexDirection: 'row',
+      flexWrap: 'wrap', alignItems: 'center', paddingLeft: 97, paddingBottom: 0, paddingTop: 10
+    }}>
 
-          <IoniIcons.Button
-          name="refresh-circle-sharp"
-          size={50}
-          backgroundColor="transparent"
-          color="#aa8515"
-          onPress={() => TrackPlayer.skipToPrevious()}/>
-        
-        
-    </View>
+      <IoniIcons.Button
+        name="ios-sync-circle-sharp"
+        size={50}
+        backgroundColor="transparent"
+        color="#aa8515"
+        onPress={onShuffle} />
+
+      <Icon.Button
+        /*style={{borderRadius: 150}}*/
+        name={playerState == State.Playing ? 'pause-circle' : 'play-circle'}
+        size={50}
+        backgroundColor="transparent"
+        color="#cfa006"
+        onPress={handlePlayPress} />
+      {/*
+    <Icon.Button
+      name="arrow-right"
+      size={28}
+      backgroundColor="transparent"
+      onPress={() => TrackPlayer.skipToNext()}/>
+        */}
+
+      <IoniIcons.Button
+        name="refresh-circle-sharp"
+        size={50}
+        backgroundColor="transparent"
+        color="#aa8515"
+        onPress={() => TrackPlayer.skipToNext()} />
+    </View><View style={{
+      flexDirection: 'row',
+      flexWrap: 'wrap', alignItems: 'center', paddingLeft: 97, paddingBottom: 0, paddingTop: 10
+    }}>
+        <Text style={styles.footerTitle}>{"Version 1.0"}</Text>
+      </View></>
   );
 }
 
@@ -214,7 +224,7 @@ function App() {
   return (
 
     <View style={styles.container}>
-    <ImageBackground source={require('./assets/image/fondo.png')} resizeMode="cover" style={styles.image}>
+    <ImageBackground source={require('./ios/assets/assets/image/fondo.png')} resizeMode="cover" style={styles.image}>
     <Header/>
     
     <Playlist/>
@@ -255,9 +265,10 @@ const styles = StyleSheet.create({
   },
   songTitle: {
     fontSize: 32,
-    marginTop: 5,
+    marginTop: 25,
     color: '#ccc',
     textAlign: 'center',
+
   },
   artistName: {
     fontSize: 24,
@@ -269,10 +280,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 24,
     color: '#eee',
-    paddingTop:400,
+    paddingTop:450,
+  },
+  footerTitle: {
+    fontSize: 8,
+    marginTop: 0,
+    color: '#ccc',
+    textAlign: 'center',
+    paddingTop: 0,
+    paddingLeft: 150,
   },
 });
-
 
 /*
 const styles = StyleSheet.create({

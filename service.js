@@ -14,6 +14,7 @@ export async function setupPlayer() {
   catch {
     await TrackPlayer.setupPlayer();
     await TrackPlayer.updateOptions({
+      stopWithApp: true,
       android: {
         appKilledPlaybackBehavior:
           AppKilledPlaybackBehavior.StopPlaybackAndRemoveNotification,
@@ -49,7 +50,7 @@ export async function addTracks() {
       url: 'https://stream1.305stream.com/proxy/client349?mp=/stream',
       title: 'Radio',
       artist: 'senda de la vida',
-      artwork: require('./assets/image/logodoradosenda.png'),
+      artwork: require('./ios/assets/assets/image/logodoradosenda.png'),
       duration: 60,
     }
   ]);
